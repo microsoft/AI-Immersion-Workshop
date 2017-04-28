@@ -1,0 +1,61 @@
+---
+title: "Hands on - `dplyr` Methods"
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output: html_document
+---
+
+```{r}
+library(dplyr)
+library(stringr)
+taxi_file <- file.path("/home/remoteuser/Data/manhattan_df.rds")
+taxi_df  <- readRDS(file = taxi_file)
+```
+
+```{r}
+ls()
+```
+
+```{r}
+class(taxi_df)
+```
+
+```{r}
+taxi_df <- taxi_df %>% mutate(tip_pct = tip_amount/fare_amount)
+```
+
+```{r}
+taxi_df
+```
+
+## Two-table joins
+
+Let's see examples of the two-table functions in `dplyr`.
+
+```{r}
+library(broom)
+taxi_coefs <- taxi_df %>% sample_n(10^5) %>%
+  group_by(dropoff_dow) %>%
+  do(tidy(lm(tip_pct ~ pickup_nhood + passenger_count + pickup_hour,
+     data = .), conf.int = TRUE)) %>% select(dropoff_dow, conf.low, conf.high)
+
+taxi_metrics <- taxi_df %>% sample_n(10^5) %>%
+  group_by(dropoff_dow) %>%
+  do(glance(lm(tip_pct ~ pickup_nhood + passenger_count + pickup_hour,
+     data = .)))
+```
+
+Use the `left_join` function in `dplyr` to append the model metrics to the coefficients.
+
+
+```{r}
+
+taxi_coefs %>% head
+
+taxi_metrics %>% head
+
+
+# joined_df <- left_join(taxi_coefs, ..., by = "...")
+
+
+```
+

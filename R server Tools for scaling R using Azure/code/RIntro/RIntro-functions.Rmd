@@ -1,0 +1,231 @@
+---
+title: "Hands on -  Writing R Functions"
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output: html_document
+---
+
+# Functions in R
+
+```{r}
+library(dplyr)
+library(stringr)
+taxi_file <- file.path("/home/remoteuser/Data/manhattan_df.rds")
+taxi_df  <- readRDS(file = taxi_file)
+```
+
+The goal of this lab is to teach you how to write functions in R that are easy to use and debug.
+
+## Components of a Function
+
+There are three major components of a function:
+
+1. The arguments of a function
+2. The body of a function
+3. It's return value/side effects *(actually, the third component is actually the environment)*
+
+```{r, eval = FALSE}
+
+any_function <- function(args1, args2, ...) {
+  
+  #
+  # BODY
+  # 
+  
+  return(value)
+  
+}
+
+```
+
+
+## Example 1 - Filter on Neighborhoods, then Model
+
+Suppose we wanted to calculate a linear model of `tip_amount` as a function of `trip_distance`. As we saw before, this is easy to do:
+
+```{r}
+tip_lm <- lm(tip_amount ~ trip_distance, data = taxi_df)
+summary(tip_lm)
+```
+
+But suppose we now want to calculate this model for a specific `pickup_nhood`. For instance, let's calculate it for the _Upper West Side_.
+
+```{r}
+
+tip_uws <- lm(tip_amount ~ trip_distance, 
+              data = filter(taxi_df, pickup_nhood == "Upper West Side"))
+summary(tip_uws)
+
+```
+
+But now say we want to calculate that model but for the _Upper East Side_. Should we copy and paste the code from above and change the last parameter? Sure, but that's going to get annoying if we have to do it more than once. R is lazy, and so am I!
+
+### Exercise 1: Create a Function to Estimate a Model For a Specific Neighborhood
+
+Before you go out and create your function, ask yourself the important questions:
+
+1. What arguments should your function take?
+2. What will go in its body?
+3. What will be the return value?
+
+```{r}
+## Starter code
+
+est_lm_nhood <- function(nhood = "Upper East Side") {
+  
+  filter_df <- dplyr::filter(taxi_df, pickup_nhood == nhood)
+  lm_model <- lm(tip_amount ~ trip_distance, data = filter_df)
+  
+  return(lm_model)
+  
+}
+
+```
+
+
+```{r}
+
+summary(est_lm_nhood("Midtown"))
+
+```
+
+
+# Digression 1 - Converting from Types
+
+Before we jump into our next example, it is worthwhile to return to data types in R, and especially focus on conversion of types.
+
+Suppose I have a vector of character variables:
+
+```{r}
+
+char_vector <- c("batman", "superman", "magneto", "ironman", "deadpool")
+class(char_vector)
+```
+
+If I wanted to conver this vector to a different _type_, say factors, I can try and use a helper function `as.factor`. 
+
+```{r}
+
+(factor_vector <- as.factor(char_vector))
+class(factor_vector)
+class(as.character(factor_vector))
+
+```
+
+Principle 1 from Day 1: _everything that exists in R is an object_. That means that anything that exists in R is some class (may be many classes!), and if we want to change that class, we can try and find an appropraite `as.otherclass` function for it.
+
+## Example 2 - Create Your Own Formula Function
+
+That means we can even create rather complex objects by simply chaining together easier functions. For instance, the formula object that is needed in all modeling functions can be created programatically from character functions:
+
+
+```{r}
+
+dep_var <- "tip_amount"
+indep_vars <- c("trip_distance", "passenger_count", "dropoff_nhood")
+
+## The paste function will paste together objects based on a separator
+## It has to important arguments: collapse and sep
+## Use collapse when you want to take a vector and paste all its elements into 1 element
+## Use sep when you have multiple vectors (or scalars: vectors of length 1) and paste them together
+(rhs <- paste(indep_vars, collapse = " + "))
+
+```
+
+### Exercise 2: Modeling Function from Strings
+
+You have all the pieces: create your modeling function
+
+```{r}
+
+make_formula <- function(depvar, indepvars) {
+  
+  rhs <- paste(indepvars, collapse = " + ")
+  form <- paste(depvar, rhs, sep = " ~ ")
+  
+  return(form)
+  
+}
+
+make_formula(dep_var, indep_vars)
+
+```
+
+## Example 3 - Generalize Your Functions
+
+With Example 2 completed, we can generalize example 1. In particular, we can now add a new argument to example one for the formula, and use our `make_model` function to create that argument's value.
+
+
+### Exercise 3: Generalize `est_lm_nhood`
+
+
+```{r}
+
+est_lm_nhood <- function(nhood, model_form) {
+  
+  filter_df <- dplyr::filter(taxi_df, pickup_nhood == nhood)
+  lm_model <- lm(model_form, data = filter_df)
+  
+  return(lm_model)  
+  
+}
+
+# summary(est_lm_nhood("Midtown", make_formula(depvar = dep_var, indepvars = indep_vars)))
+```
+
+
+# Functionals
+
+A functional is simply a function that takes another function as one of its arguments. Strictly speaking, functionals should take a function as its primary input, and output a single vector/list. 
+
+## Functional for Many Models
+
+Suppose we want to use our `est_lm_hood` function to estimate not one model, but several models for different values of `pickup_nhood`. We could create a `for` loop, and iterate over a vector of `pickup_nhood` columns. However, you have probably heard that for loops are signs of weakness.
+
+Instead, you can use the most popular functional in R: `lapply`.
+
+### How `lapply` works
+
+`lapply` is actually a very simple functional, and is absolutely worth learning because it makes functional programming in R easy and effective.
+
+`lapply` works by taking a list and a function as its inputs, and then applies the function to each element of the list.
+
+![](http://adv-r.had.co.nz/diagrams/lapply.png)
+
+### `lapply` Example
+
+```{r}
+
+summarise_col <- function(colname, df = taxi_df) {
+  
+  return(summary(df[[colname]]))
+  
+}
+
+lapply(list("tip_amount", "fare_amount"), summarise_col)
+# same as 
+lapply(c("tip_amount", "fare_amount"), summarise_col)
+
+```
+
+
+
+# Debugging
+
+Your functions will not be perfect the first time you write them. They will have bugs.
+
+The best way to become a better programmer and human being is to write buggy software and then stay up at night debugging.
+
+## Debugging Example
+
+Let's say we use an incorrect column name inside of `lapply` in the chunk above:
+
+```{r eval=FALSE}
+
+# misspelling, get strange zero
+lapply(c("tp_amount", "fare_amount"), summarise_col)
+
+debugonce(summarise_col)
+lapply(c("tp_amount", "fare_amount"), summarise_col)
+
+```
+
