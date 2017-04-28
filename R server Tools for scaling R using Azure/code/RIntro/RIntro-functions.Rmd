@@ -8,7 +8,6 @@ output: html_document
 
 ```{r}
 library(dplyr)
-library(stringr)
 taxi_file <- file.path("/home/remoteuser/Data/manhattan_df.rds")
 taxi_df  <- readRDS(file = taxi_file)
 ```
