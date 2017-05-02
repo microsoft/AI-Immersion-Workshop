@@ -1,4 +1,4 @@
-setwd("/home/remoteuser/Code/MRS")
+setwd("/home/remoteuser/Code/ROnAzure")
 source("SetComputeContext.r")
 
 .libPaths(c(file.path(Sys.getenv("SPARK_HOME"), "R", "lib"), .libPaths()))

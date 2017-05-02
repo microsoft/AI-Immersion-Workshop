@@ -31,8 +31,8 @@ systemctl start hadoop-namenode hadoop-datanode hadoop-yarn rstudio-server
 ## MRS Deploy Setup
 #######################################################################################################################################
 cd /home/remoteuser
-wget https://raw.githubusercontent.com/Azure/Azure-MachineLearning-DataScience/master/Misc/StrataSanJose2017/Scripts/backend_appsettings.json
-wget https://raw.githubusercontent.com/Azure/Azure-MachineLearning-DataScience/master/Misc/StrataSanJose2017/Scripts/webapi_appsettings.json
+wget https://vpgeneralblob.blob.core.windows.net/aitutorial/backend_appsettings.json
+wget https://vpgeneralblob.blob.core.windows.net/aitutorial/webapi_appsettings.json
 
 mv backend_appsettings.json /usr/lib64/microsoft-deployr/9.0.1/Microsoft.DeployR.Server.BackEnd/appsettings.json
 mv webapi_appsettings.json /usr/lib64/microsoft-deployr/9.0.1/Microsoft.DeployR.Server.WebAPI/appsettings.json
@@ -52,41 +52,52 @@ systemctl start backend
 
 # Copy Spark configuration files & shell script
 cd /home/remoteuser
-wget https://raw.githubusercontent.com/Azure/Azure-MachineLearning-DataScience/master/Misc/StrataSanJose2017/Scripts/spark-defaults.conf
+wget https://vpgeneralblob.blob.core.windows.net/aitutorial/spark-defaults.conf
 mv spark-defaults.conf /dsvm/tools/spark/current/conf
-wget https://raw.githubusercontent.com/Azure/Azure-MachineLearning-DataScience/master/Misc/StrataSanJose2017/Scripts/log4j.properties
+wget https://vpgeneralblob.blob.core.windows.net/aitutorial/log4j.properties
 mv log4j.properties /dsvm/tools/spark/current/conf
-wget https://raw.githubusercontent.com/Azure/Azure-MachineLearning-DataScience/master/Misc/StrataSanJose2017/Scripts/DSVM_Customization_Script.sh
 
 ## DOWNLOAD ALL CODE FILES
 cd /home/remoteuser
 mkdir  Data Code
-mkdir Code/MRS Code/sparklyr Code/SparkR Code/bigmemory Code/ff Code/UseCaseHTS Code/UseCaseLearningCurves
+mkdir Code/RDeployment Code/RIntro Code/ROnAzure
 
 cd /home/remoteuser
-cd Code/MRS
-wget https://raw.githubusercontent.com/Azure/Azure-MachineLearning-DataScience/master/Misc/StrataSanJose2017/Code/MRS/1-Clean-Join-Subset.r
-wget https://raw.githubusercontent.com/Azure/Azure-MachineLearning-DataScience/master/Misc/StrataSanJose2017/Code/MRS/2-Train-Test-Subset.r
-wget https://raw.githubusercontent.com/Azure/Azure-MachineLearning-DataScience/master/Misc/StrataSanJose2017/Code/MRS/3-Deploy-Score-mrsdeploy.r
-wget https://raw.githubusercontent.com/Azure/Azure-MachineLearning-DataScience/master/Misc/StrataSanJose2017/Code/MRS/SetComputeContext.r
-wget https://raw.githubusercontent.com/Azure/Azure-MachineLearning-DataScience/master/Misc/StrataSanJose2017/Code/MRS/logitModelSubset.RData
+cd Code/RDeployment
+wget https://vpgeneralblob.blob.core.windows.net/aitutorial/RDeployment-AzureML.Rmd
 
+cd /home/remoteuser
+cd Code/RIntro
+wget https://vpgeneralblob.blob.core.windows.net/aitutorial/RIntro-data-structures.Rmd
+wget https://vpgeneralblob.blob.core.windows.net/aitutorial/RIntro-dplyr.Rmd
+wget https://vpgeneralblob.blob.core.windows.net/aitutorial/RIntro-functions.Rmd
+
+cd /home/remoteuser
+cd Code/ROnAzure
+wget https://vpgeneralblob.blob.core.windows.net/aitutorial/ROnAzure-doAzureParallel.R
+wget https://vpgeneralblob.blob.core.windows.net/aitutorial/1-Clean-Join-Subset.r
+wget https://vpgeneralblob.blob.core.windows.net/aitutorial/2-Train-Test-Subset.r
+wget https://vpgeneralblob.blob.core.windows.net/aitutorial/SetComputeContext.r
+
+
+cd /home/remoteuser
+cd Data
+wget https://vpgeneralblob.blob.core.windows.net/aitutorial/manhattan_df.rds
+wget https://vpgeneralblob.blob.core.windows.net/aitutorial/logitModelSubset.RData
 
 
 ## DOWNLOAD ALL DATA FILES
 
 # Airline data
-wget http://cdspsparksamples.blob.core.windows.net/data/Airline/WeatherSubsetCsv.tar.gz
-wget http://cdspsparksamples.blob.core.windows.net/data/Airline/AirlineSubsetCsv.tar.gz
+cd /home/remoteuser
+cd Data
+wget https://vpgeneralblob.blob.core.windows.net/aitutorial/AirlineData/WeatherSubsetCsv.tar.gz
+wget https://vpgeneralblob.blob.core.windows.net/aitutorial/AirlineData/AirlineSubsetCsv.tar.gz
 gunzip WeatherSubsetCsv.tar.gz
 gunzip AirlineSubsetCsv.tar.gz
 tar -xvf WeatherSubsetCsv.tar
 tar -xvf AirlineSubsetCsv.tar
 rm WeatherSubsetCsv.tar AirlineSubsetCsv.tar
-
-cd /home/remoteuser
-cd Data
-wget http://strata2017r.blob.core.windows.net/airline/airline_20MM.csv
 
 ## Copy data to HDFS
 cd /home/remoteuser
@@ -107,7 +118,7 @@ cd Data
 #######################################################################################################################################
 # Install R packages
 cd /home/remoteuser
-wget https://raw.githubusercontent.com/Azure/Azure-MachineLearning-DataScience/master/Misc/StrataSanJose2017/Scripts/InstallPackages.R
+wget https://vpgeneralblob.blob.core.windows.net/aitutorial/InstallPackages.R
 
 cd /usr/bin
 Revo64-9.0 --vanilla --quiet  <  /home/remoteuser/InstallPackages.R

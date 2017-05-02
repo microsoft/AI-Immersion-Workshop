@@ -1,12 +1,5 @@
 setwd('/home/remoteuser/Code/ROnAzure/')
 
-batch_name <- '<Batch Account Name>'
-batch_url <- '<Batch Account URL>'
-batch_key <- '<Batch Account Access Key>'
-
-strg_name <- '<Storage name>'
-strg_key <- '<Storage key>'
-
 library(doAzureParallel)
 
 # 1. Generate a pool configuration file.  
