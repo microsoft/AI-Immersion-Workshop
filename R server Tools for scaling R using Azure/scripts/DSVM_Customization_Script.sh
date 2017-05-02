@@ -65,6 +65,7 @@ mkdir Code/RDeployment Code/RIntro Code/ROnAzure
 cd /home/remoteuser
 cd Code/RDeployment
 wget https://vpgeneralblob.blob.core.windows.net/aitutorial/RDeployment-AzureML.Rmd
+wget http://vpgeneralblob.blob.core.windows.net/aitutorial/RDeployment-mrsdeploy.r
 
 cd /home/remoteuser
 cd Code/RIntro

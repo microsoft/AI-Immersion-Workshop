@@ -226,3 +226,6 @@ rxGetInfo(finalData, getVarInfo = T)
 # Var 20: WindSpeedDest, Type: numeric, Low/High: (0.0000, 47.6250)
 # Var 21: VisibilityDest, Type: numeric, Low/High: (0.0000, 80.0000)
 # Var 22: DewPointCelsiusDest, Type: numeric, Low/High: (-43.0000, 24.2000)
+
+# For local compute context, skip the following line
+rxSparkDisconnect(rxGetComputeContext())
