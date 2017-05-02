@@ -1,4 +1,4 @@
-setwd("/home/remoteuser/Code/MRS")
+setwd("/home/remoteuser/Code/ROnAzure")
 source("SetComputeContext.r")
 
 # For local compute context, skip the following line

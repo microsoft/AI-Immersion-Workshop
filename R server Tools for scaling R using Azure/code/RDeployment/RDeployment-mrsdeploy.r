@@ -4,7 +4,7 @@
 # follow these instructions:
 # https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-r-server-get-started#using-microsoft-r-server-operationalization
 
-setwd("/home/remoteuser/Code/MRS")
+setwd("/home/remoteuser/Code/ROnAzure")
 source("SetComputeContext.r")
 
 rxSetComputeContext("local")
