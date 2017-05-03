@@ -3,7 +3,7 @@
 ## Tutorial link (AI Immersion Workshop, May 2017)
 [https://aiimmersion.eventcore.com/agenda#/192939](https://aiimmersion.eventcore.com/agenda#/192939)
 
-## REQUIRED - Tutorial Prerequisites
+## Tutorial Prerequisites
 * Please bring a wireless enabled laptop.
 * Make sure your machine has an ssh client with port-forwarding capability. On Mac or Linux, simply run the ssh command in a terminal window.
 On Windows, download [plink.exe](https://the.earth.li/~sgtatham/putty/latest/x86/plink.exe)
@@ -13,15 +13,18 @@ from [http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html](http://ww
 We will provide Azure Data Science Virtual Machines (running Spark 2.0.2) for attendees to use during the tutorial. You will use your laptop to connect to your allocated virtual machine.
 
 1. Connect to your DSVM
-    * __Linux, Mac__: Command line to connect with ssh - replace XXX with the DNS address of your Data Science Virtual Machine [e.g. mymachine.westus.cloudapp.azure.com]
+    * __Linux, Mac__: Command line to connect with ssh - replace XXX with the public IP address of your Data Science Virtual Machine [e.g. remoteuser@13.64.107.209]
     ```bash
-    ssh -L localhost:8787:localhost:8787 -L localhost:8088:localhost:8088 remoteuser@XXX
+    ssh -L localhost:8787:localhost:8787 remoteuser@XXX
     ```
-    * __Windows__: Command line to connect with plink.exe - run the following commands in a Windows command prompt window - replace XXX with the DNS address of your Data Science Virtual Machine [e.g. mymachine.westus.cloudapp.azure.com]
+    * __Windows__: Command line to connect with plink.exe - run the following commands in a Windows command prompt window - replace XXX with the public IP address of your Data Science Virtual Machine [e.g. remoteuser@13.64.107.209]
     ```bash
     cd directory-containing-plink.exe
-    .\plink.exe -L localhost:8787:localhost:8787 -L localhost:8088:localhost:8088 remoteuser@XXX
+    .\plink.exe -L localhost:8787:localhost:8787 remoteuser@XXX
     ```
+    We are createing an SSH tunnel to the VM by mapping localhost:8787 on the VM to the client machine. This is the port on the VM opened to RStudio Server.
+
+    ![VM SSH](./docs/images/ssh_into_vm.gif)
 
 2. Once you are connected, become a root user on the cluster. In the SSH session, use the following command.
 
@@ -32,7 +35,7 @@ We will provide Azure Data Science Virtual Machines (running Spark 2.0.2) for at
 3. Download the custom script to install all the prerequisites. Use the following command.
 
     ```bash
-    wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/scripts/DSVM_Customization_Script.sh
+    wget http://vpgeneralblob.blob.core.windows.net/aitutorial/DSVM_Customization_Script.sh
     ````
 
 
@@ -40,13 +43,15 @@ We will provide Azure Data Science Virtual Machines (running Spark 2.0.2) for at
 
     ```bash
     chmod +x DSVM_Customization_Script.sh
-    ./downloadRun.sh
+    dos2unix ./DSVM_Customization_Script.sh
+    ./DSVM_Customization_Script.sh
     ```
 5. After connecting via the above command lines, open a web browser and open the following URL to connect to RStudio Server on your Data Science Virtual Machine<br>
 
     ```bash
     http://localhost:8787/ 
     ```
+    ![RStudio Server](./docs/images/rstudioserver.png)
 
 <hr>
 

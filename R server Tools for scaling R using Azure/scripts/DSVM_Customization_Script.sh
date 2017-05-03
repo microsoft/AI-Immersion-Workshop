@@ -6,15 +6,12 @@
 #######################################################################################################################################
 
 #!/bin/bash
+printf "Setting up hadoop ... \n"
 source /etc/profile.d/hadoop.sh
-#PATH=paste0(Sys.getenv("PATH"),":/opt/hadoop/current/bin:/dsvm/tools/spark/current/bin")
 
 #######################################################################################################################################
 ## Setup autossh for hadoop service account
 #######################################################################################################################################
-#cat /opt/hadoop/.ssh/id_rsa.pub >> /opt/hadoop/.ssh/authorized_keys
-#chmod 0600 /opt/hadoop/.ssh/authorized_keys
-#chown hadoop /opt/hadoop/.ssh/authorized_keys
 echo -e 'y\n' | ssh-keygen -t rsa -P '' -f ~hadoop/.ssh/id_rsa
 cat ~hadoop/.ssh/id_rsa.pub >> ~hadoop/.ssh/authorized_keys
 chmod 0600 ~hadoop/.ssh/authorized_keys
@@ -25,11 +22,13 @@ chown hadoop:hadoop ~hadoop/.ssh/authorized_keys
 #######################################################################################################################################
 ## Start up several services, yarn, hadoop, rstudio server
 #######################################################################################################################################
+printf "Starting services ... \n"
 systemctl start hadoop-namenode hadoop-datanode hadoop-yarn rstudio-server
 
 #######################################################################################################################################
 ## MRS Deploy Setup
 #######################################################################################################################################
+printf "Setting up MRS Operationalization ... \n"
 cd /home/remoteuser
 wget https://vpgeneralblob.blob.core.windows.net/aitutorial/backend_appsettings.json
 wget https://vpgeneralblob.blob.core.windows.net/aitutorial/webapi_appsettings.json
@@ -49,6 +48,7 @@ systemctl start backend
 #######################################################################################################################################
 # Copy data and code to VM
 #######################################################################################################################################
+printf "Downloading spark configuration files ... \n"
 
 # Copy Spark configuration files & shell script
 cd /home/remoteuser
@@ -57,6 +57,7 @@ mv spark-defaults.conf /dsvm/tools/spark/current/conf
 wget https://vpgeneralblob.blob.core.windows.net/aitutorial/log4j.properties
 mv log4j.properties /dsvm/tools/spark/current/conf
 
+printf "Downloading code files ... \n"
 ## DOWNLOAD ALL CODE FILES
 cd /home/remoteuser
 mkdir  Data Code
@@ -81,13 +82,12 @@ wget https://vpgeneralblob.blob.core.windows.net/aitutorial/2-Train-Test-Subset.
 wget https://vpgeneralblob.blob.core.windows.net/aitutorial/SetComputeContext.r
 
 
+printf "Downloading data files ... \n"
+## DOWNLOAD ALL DATA FILES
 cd /home/remoteuser
 cd Data
 wget https://vpgeneralblob.blob.core.windows.net/aitutorial/manhattan_df.rds
 wget https://vpgeneralblob.blob.core.windows.net/aitutorial/logitModelSubset.RData
-
-
-## DOWNLOAD ALL DATA FILES
 
 # Airline data
 cd /home/remoteuser
@@ -100,6 +100,7 @@ tar -xvf WeatherSubsetCsv.tar
 tar -xvf AirlineSubsetCsv.tar
 rm WeatherSubsetCsv.tar AirlineSubsetCsv.tar
 
+printf "Copying files to HDFS ... \n"
 ## Copy data to HDFS
 cd /home/remoteuser
 cd Data
@@ -117,6 +118,8 @@ cd Data
 
 #######################################################################################################################################
 #######################################################################################################################################
+printf "Installing R packages ... \n"
+
 # Install R packages
 cd /home/remoteuser
 wget https://vpgeneralblob.blob.core.windows.net/aitutorial/InstallPackages.R
@@ -126,6 +129,8 @@ Revo64-9.0 --vanilla --quiet  <  /home/remoteuser/InstallPackages.R
 
 #######################################################################################################################################
 #######################################################################################################################################
+printf "Changing directory ownership ... \n"
+
 ## Change ownership of some of directories
 cd /home/remoteuser 
 chown -R remoteuser Code Data
@@ -133,6 +138,7 @@ chown -R remoteuser Code Data
 su hadoop -c "/opt/hadoop/current/bin/hadoop fs -chown -R remoteuser /user/RevoShare/rserve2" 
 su hadoop -c "/opt/hadoop/current/bin/hadoop fs -chown -R remoteuser /user/RevoShare/remoteuser" 
 
+printf "Done! \n"
 #######################################################################################################################################
 #######################################################################################################################################
 ## END

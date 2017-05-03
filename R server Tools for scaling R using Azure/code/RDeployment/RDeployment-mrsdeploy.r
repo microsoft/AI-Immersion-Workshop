@@ -81,3 +81,12 @@ response <- endpoint$scoringFn(dataToBeScored)
 scores <- response$output("answer")
 
 head(scores)
+
+
+################################################
+# You can call and integrate the web services into 
+# other applications using the service-specific 
+# Swagger-based JSON file along with the required inputs. 
+################################################
+swagger <- api_frame$swagger()
+cat(swagger, file = "swagger.json", append = FALSE)
