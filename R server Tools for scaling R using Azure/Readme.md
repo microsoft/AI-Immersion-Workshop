@@ -51,7 +51,8 @@ We will provide Azure Data Science Virtual Machines (running Spark 2.0.2) for at
     ```bash
     http://localhost:8787/ 
     ```
-    ![RStudio Server](./docs/images/rstudioserver.png)
+
+    ![RStudio Server](./docs/images/rstudioserver.PNG)
 
 <hr>
 
