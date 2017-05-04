@@ -86,7 +86,7 @@ printf "Downloading data files ... \n"
 ## DOWNLOAD ALL DATA FILES
 cd /home/remoteuser
 cd Data
-wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/RIntro/manhattan_df.rds
+wget http://vpgeneralblob.blob.core.windows.net/aitutorial/manhattan_df.rds
 wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/logitModelSubset.RData
 
 # Airline data
