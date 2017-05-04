@@ -35,7 +35,7 @@ We will provide Azure Data Science Virtual Machines (running Spark 2.0.2) for at
 3. Download the custom script to install all the prerequisites. Use the following command.
 
     ```bash
-    wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/scripts/DSVM_Customization_Script.sh
+    wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/scripts/DSVM_Customization_Script.sh
     ````
 
 

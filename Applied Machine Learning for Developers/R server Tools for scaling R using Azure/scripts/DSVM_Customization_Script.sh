@@ -30,8 +30,8 @@ systemctl start hadoop-namenode hadoop-datanode hadoop-yarn rstudio-server
 #######################################################################################################################################
 printf "Setting up MRS Operationalization ... \n"
 cd /home/remoteuser
-wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/scripts/backend_appsettings.json
-wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/scripts/webapi_appsettings.json
+wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/scripts/backend_appsettings.json
+wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/scripts/webapi_appsettings.json
 
 mv backend_appsettings.json /usr/lib64/microsoft-deployr/9.0.1/Microsoft.DeployR.Server.BackEnd/appsettings.json
 mv webapi_appsettings.json /usr/lib64/microsoft-deployr/9.0.1/Microsoft.DeployR.Server.WebAPI/appsettings.json
@@ -52,9 +52,9 @@ printf "Downloading spark configuration files ... \n"
 
 # Copy Spark configuration files & shell script
 cd /home/remoteuser
-wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/scripts/spark-defaults.conf
+wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/scripts/spark-defaults.conf
 mv spark-defaults.conf /dsvm/tools/spark/current/conf
-wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/scripts/log4j.properties
+wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/scripts/log4j.properties
 mv log4j.properties /dsvm/tools/spark/current/conf
 
 printf "Downloading code files ... \n"
@@ -65,21 +65,21 @@ mkdir Code/RIntro Code/ROnAzure Code/RDeployment
 
 cd /home/remoteuser
 cd Code/RIntro
-wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/RIntro/RIntro-data-structures.Rmd
-wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/RIntro/RIntro-dplyr.Rmd
-wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/RIntro/RIntro-functions.Rmd
+wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/RIntro/RIntro-data-structures.Rmd
+wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/RIntro/RIntro-dplyr.Rmd
+wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/RIntro/RIntro-functions.Rmd
 
 cd /home/remoteuser
 cd Code/ROnAzure
-wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/ROnAzure-doAzureParallel.R
-wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/1-Clean-Join-Subset.r
-wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/2-Train-Test-Subset.r
-wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/SetComputeContext.r
+wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/ROnAzure-doAzureParallel.R
+wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/1-Clean-Join-Subset.r
+wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/2-Train-Test-Subset.r
+wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/SetComputeContext.r
 
 cd /home/remoteuser
 cd Code/RDeployment
-wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/RDeployment/RDeployment-AzureML.Rmd
-wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/RDeployment/RDeployment-mrsdeploy.r
+wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/RDeployment/RDeployment-AzureML.Rmd
+wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/RDeployment/RDeployment-mrsdeploy.r
 
 
 printf "Downloading data files ... \n"
@@ -87,7 +87,7 @@ printf "Downloading data files ... \n"
 cd /home/remoteuser
 cd Data
 wget http://vpgeneralblob.blob.core.windows.net/aitutorial/manhattan_df.rds
-wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/logitModelSubset.RData
+wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/logitModelSubset.RData
 
 # Airline data
 cd /home/remoteuser
@@ -122,7 +122,7 @@ printf "Installing R packages ... \n"
 
 # Install R packages
 cd /home/remoteuser
-wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/scripts/InstallPackages.R
+wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/scripts/InstallPackages.R
 
 cd /usr/bin
 Revo64-9.0 --vanilla --quiet  <  /home/remoteuser/InstallPackages.R
