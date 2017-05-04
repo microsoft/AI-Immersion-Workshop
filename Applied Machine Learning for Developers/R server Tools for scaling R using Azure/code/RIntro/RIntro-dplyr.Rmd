@@ -1,0 +1,393 @@
+---
+title: "Hands on - `dplyr` Methods"
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output: html_document
+---
+
+
+# Data Manipulation with the `dplyr` Package
+
+## Overview
+
+Rather than describing the nitty gritty details of writing R code, I'd like you to get started at immediately writing R code.
+
+As most of you are data scientists/data enthusiasts, I will showcase one of the most useful data manipulation packages in R, `dplyr`.
+At the end of this session, you will have learned:
+
+* How to manipulate data quickly with `dplyr` using a very intuitive _"grammar"_
+* How to use `dplyr` to perform common exploratory analysis data manipulation procedures
+* How to apply your own custom functions to group manipulations `dplyr` with `mutate()`, `summarise()` and `do()`
+* Connect to remote databases to work with larger than memory datasets
+
+## Why use dplyr? 
+### The Grammar of Data Manipulation
+
+* `dplyr` is currently the [most downloaded package](https://www.rdocumentation.org/packages/dplyr/versions/0.5.0?) from CRAN
+* `dplyr` makes data manipulation easier by providing a few functions for the most common tasks and procedures
+* `dplyr` achieves remarkable speed-up gains by using a C++ backend
+* `dplyr` has multiple backends for working with data stored in various sources: SQLite, MySQL, bigquery, SQL Server, and many more
+* `dplyr` was inspired to give data manipulation a simple, cohesive grammar (similar philosophy to `ggplot` - grammar of graphics)
+* `dplyr` has inspired many new packages, which now adopt it's easy to understand syntax. 
+* The recent packages `dplyrXdf` and `SparkR/sparklyr` brings much of the same functionality of `dplyr` to `XDF`s data and Spark `DataFrames`
+
+
+## Tidy Data and Happier Coding
+### Premature Optimization 
+
++ The most important parameter to optimize in a data science development cycle is YOUR time
++ It is therefore important to be able to write efficient code, quickly
++ Goals: writing fast code that is: portable, platform invariant, easy to understand, and easy to debug
+    - __Be serious about CReUse__!
+
+## Manipulation verbs
+
+`filter`
+
+:    select rows based on matching criteria
+
+`slice`
+
+:    select rows by number
+
+`select`
+
+:    select columns by column names
+
+`arrange`
+
+:    reorder rows by column values
+
+`mutate`
+
+:    add new variables based on transformations of existing variables
+
+`transmute`
+
+:    transform and drop other variables
+
+
+
+## Aggregation verbs
+
+`group_by`
+
+:    identify grouping variables for calculating groupwise summary statistics
+
+
+`count`
+
+:    count the number of records per group
+
+
+`summarise` | `summarize`
+
+:    calculate one or more summary functions per group, returning one row of results per group (or one for the entire dataset)
+
+## NYC Taxi Data
+### Data for Class
+
+* The data we will be examining in this module is dervided from the [NYC Taxi and Limousine Commission](http://www.nyc.gov/html/tlc/html/home/home.shtml)
+* Data contains taxi trips in NYC, and includes spatial features (pickup and dropoff neighborhoods), temporal features, and monetary features (fare and tip amounts)
+* The dataset for this module is saved as an _rds_ file in a public facing Azure storage blob
+* An _rds_ file is a compressed, serialized R object
+* Save an object to _rds_ by using the `saveRDS` function; read an _rds_ object with the `readRDS` object
+
+## Viewing Data
+### tibble
+
+* `dplyr` includes a wrapper called `tbl_df` that adds an additional class attribute onto `data.frames` that provides some better data manipulation aesthetics (there's now a dedicated package [`tibble`](www.github.com/hadley/tibble) for this wrapper and it's class)
+* Most noticeable differential between `tbl_df` and `data.frame`s is the console output: `tbl_df`s will only print what the current R console window can display
+* Can change the default setting for number of displayed columns by changing the options parameter: `options(dplyr.width = Inf)` 
+
+```{r}
+library(dplyr)
+taxi_file <- file.path("/home/remoteuser/Data/manhattan_df.rds")
+taxi_df  <- readRDS(file = taxi_file)
+(taxi_df <- tbl_df(taxi_df))
+```
+
+# Filtering and Reordering Data
+
+## Subsetting Data
+
+* `dplyr` makes subsetting by rows very easy
+* The `filter` verb takes conditions for filtering rows based on conditions
+* **every** `dplyr` function uses a data.frame/tbl as it's first argument
+* Additional conditions are passed as new arguments (no need to make an insanely complicated expression, split em up!)
+
+## Filter
+
+```{r}
+filter(taxi_df,
+       dropoff_dow %in% c("Fri", "Sat", "Sun"),
+       tip_amount > 1)
+```
+
+## Exercise
+
+Your turn: 
+
+* How many observations started in Harlem?
+  - pick both sides of Harlem, including east harlem
+  - *hint*: it might be useful to use the `str_detect` function from `stringr`
+* How many observations that started in Harlem ended in the Financial District?
+
+## Solution
+
+```{r}
+library(stringr)
+harlem_pickups <- filter(taxi_df, str_detect(pickup_nhood, "Harlem"))
+harlem_pickups
+# uncomment the line below (ctrl+shift+c) and filter harlem_pickups on Financial District
+# how many rows?
+# fidi <- filter(harlem_pickups, ...)
+```
+
+## Select a set of columns
+
+* You can use the `select()` verb to specify which columns of a dataset you want
+* This is similar to the `keep` option in SAS's data step.
+* Use a colon `:` to select all the columns between two variables (inclusive)
+* Use `contains` to take any columns containing a certain word/phrase/character
+
+## Select Example
+
+```{r}
+select(taxi_df, pickup_nhood, dropoff_nhood, 
+       fare_amount, dropoff_hour, trip_distance)
+```
+
+## Select: Other Options
+
+starts_with(x, ignore.case = FALSE)
+
+:    name starts with `x`
+
+ends_with(x, ignore.case = FALSE)
+
+:    name ends with `x`
+
+matches(x, ignore.case = FALSE)
+
+:    selects all variables whose name matches the regular expression `x`
+
+num_range("V", 1:5, width = 1)
+
+:    selects all variables (numerically) from `V1` to `V5`.
+
+* You can also use a `-` to drop variables.
+
+## Reordering Data
+
+* You can reorder your dataset based on conditions using the `arrange()` verb
+* Use the `desc` function to sort in descending order rather than ascending order (default)
+
+## Arrange
+
+```{r}
+select(arrange(taxi_df, desc(fare_amount), pickup_nhood), 
+       fare_amount, pickup_nhood)
+
+head(select(arrange(taxi_df, desc(fare_amount), pickup_nhood), 
+       fare_amount, pickup_nhood), 10)
+```
+
+
+
+
+## Exercise
+Use `arrange()` to  sort on the basis of `tip_amount`, `dropoff_nhood`, and `pickup_dow`, with descending order for tip amount
+
+## Summary
+
+filter
+
+:    Extract subsets of rows. See also `slice()`
+
+select
+
+:    Extract subsets of columns. See also `rename()`
+
+arrange
+
+:    Sort your data
+
+# Data Aggregations and Transformations
+
+## Transformations
+
+* The `mutate()` verb can be used to make new columns
+
+```{r}
+taxi_df <- mutate(taxi_df, tip_pct = tip_amount/fare_amount)
+select(taxi_df, tip_pct, fare_amount, tip_amount)
+transmute(taxi_df, tip_pct = tip_amount/fare_amount)
+```
+
+## Summarise Data by Groups
+
+* The `group_by` verb creates a grouping by a categorical variable
+* Functions can be placed inside `summarise` to create summary functions
+
+```{r}
+grouped_taxi <- group_by(taxi_df, dropoff_nhood)
+class(grouped_taxi)
+grouped_taxi
+```
+
+
+```{r}
+summarize(group_by(taxi_df, dropoff_nhood), 
+          count = n(), ave_tip_pct = mean(tip_pct))
+```
+
+## Chaining/Piping
+
+* A `dplyr` installation includes the `magrittr` package as a dependency 
+* The `magrittr` package includes a pipe operator that allows you to pass the current dataset to another function
+* This makes interpreting a nested sequence of operations much easier to understand
+
+## Standard Code
+
+* Code is executed inside-out.
+* Let's arrange the above average tips in descending order, and only look at the locations that had at least 10 dropoffs and pickups.
+
+```{r}
+filter(arrange(summarise(group_by(taxi_df, pickup_nhood, dropoff_nhood), count = n(), ave_tip_pct = mean(tip_pct)), desc(ave_tip_pct)), count >= 10)
+```
+
+--- 
+
+
+## Reformatted
+
+```{r}
+filter(
+  arrange(
+    summarise(
+      group_by(taxi_df, 
+               pickup_nhood, dropoff_nhood), 
+      count = n(), 
+      ave_tip_pct = mean(tip_pct)), 
+    desc(ave_tip_pct)), 
+  count >= 10)
+```
+
+## Magrittr
+
+* Inspired by unix `|`, and F# forward pipe `|>`, `magrittr` introduces the funny character (`%>%`, the _then_ operator)
+* `%>%` pipes the object on the left hand side to the first argument of the function on the right hand side
+* Every function in `dplyr` has a slot for `data.frame/tbl` as it's first argument, so this works beautifully!
+
+
+```{r}
+taxi_df %>% 
+  group_by(pickup_nhood, dropoff_nhood) %>% 
+  summarize(count = n(),
+            ave_tip_pct = mean(tip_pct)) %>% 
+  arrange(desc(ave_tip_pct)) %>% 
+  filter(count >= 10)
+```
+
+---
+
+## Pipe and Plot
+
+Piping is not limited to dplyr functions, can be used everywhere!
+
+```{r, eval = FALSE, fig.height = 8, fig.width = 8}
+library(ggplot2)
+taxi_df %>% 
+  group_by(dropoff_nhood, pickup_nhood) %>% 
+  summarize(ave_tip = mean(tip_pct), 
+            ave_dist = mean(trip_distance)) %>% 
+  filter(ave_dist > 25, ave_tip > .5) %>% 
+  ggplot(aes(x = pickup_nhood, y = dropoff_nhood)) + 
+    geom_tile(aes(fill = ave_tip), colour = "white") + 
+    theme_bw() + 
+    theme(axis.text.x = element_text(angle = 45, hjust = 1),
+          legend.position = 'bottom') +
+    scale_fill_gradient(low = "white", high = "steelblue")
+
+```
+
+---
+
+## Piping to other arguments
+
+* Although `dplyr` takes great care to make it particularly amenable to piping, other functions may not reserve the first argument to the object you are passing into it.
+* You can use the special `.` placeholder to specify where the object should enter
+
+```{r}
+taxi_df %>% 
+  group_by(dropoff_nhood, pickup_nhood) %>% 
+  summarize(ave_tip = mean(tip_pct), 
+            ave_dist = mean(trip_distance)) %>% 
+  lm(ave_tip ~ ave_dist, data = .) -> taxi_model
+summary(taxi_model)
+```
+
+## Exercise
+  
+Your turn: 
+
+* Use the pipe operator to group by day of week and dropoff neighborhood
+* Filter to Manhattan neighborhoods 
+* Make tile plot with average fare amount in dollars as the fill
+
+
+
+## Creating Complex Pipelines with do
+
+* The `summarize` function is fun, can summarize many numeric/scalar quantities
+* But what if you want multiple values/rows back, not just a scalar summary?
+* Meet the `do` verb -- arbitrary `tbl` operations
+
+---
+
+```{r eval=FALSE}
+taxi_df %>% group_by(dropoff_dow) %>%
+  filter(!is.na(dropoff_nhood), !is.na(pickup_nhood)) %>%
+  arrange(desc(tip_pct)) %>% 
+  do(slice(., 1:2)) %>% 
+  select(dropoff_dow, tip_amount, tip_pct, 
+         fare_amount, dropoff_nhood, pickup_nhood)
+```
+
+## Estimating Multiple Models with do
+
+* A common use of `do` is to calculate many different models by a grouping variable
+
+```{r}
+dow_lms <- taxi_df %>% sample_n(10^4) %>% 
+  group_by(dropoff_dow) %>% 
+  do(lm_tip = lm(tip_pct ~ pickup_nhood + passenger_count + pickup_hour,
+     data = .))
+```
+
+---
+
+```{r}
+dow_lms
+```
+
+
+## Summary
+
+mutate
+
+:    Create transformations
+
+summarise
+
+:    Aggregate
+
+group_by
+
+:    Group your dataset by levels
+
+do
+
+:    Evaluate complex operations on a tbl
+
+Chaining with the `%>%` operator can result in more readable code.
