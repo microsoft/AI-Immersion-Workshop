@@ -28,22 +28,22 @@ systemctl start hadoop-namenode hadoop-datanode hadoop-yarn rstudio-server
 #######################################################################################################################################
 ## MRS Deploy Setup
 #######################################################################################################################################
-printf "Setting up MRS Operationalization ... \n"
-cd /home/remoteuser
-wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/scripts/backend_appsettings.json
-wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/scripts/webapi_appsettings.json
+# printf "Setting up MRS Operationalization ... \n"
+# cd /home/remoteuser
+# wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/scripts/backend_appsettings.json
+# wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/scripts/webapi_appsettings.json
 
-mv backend_appsettings.json /usr/lib64/microsoft-deployr/9.0.1/Microsoft.DeployR.Server.BackEnd/appsettings.json
-mv webapi_appsettings.json /usr/lib64/microsoft-deployr/9.0.1/Microsoft.DeployR.Server.WebAPI/appsettings.json
+# mv backend_appsettings.json /usr/lib64/microsoft-deployr/9.0.1/Microsoft.DeployR.Server.BackEnd/appsettings.json
+# mv webapi_appsettings.json /usr/lib64/microsoft-deployr/9.0.1/Microsoft.DeployR.Server.WebAPI/appsettings.json
 
-cp /usr/lib64/microsoft-deployr/9.0.1/Microsoft.DeployR.Server.WebAPI/autoStartScriptsLinux/*    /etc/systemd/system/.
-cp /usr/lib64/microsoft-deployr/9.0.1/Microsoft.DeployR.Server.BackEnd/autoStartScriptsLinux/*   /etc/systemd/system/.
-systemctl enable frontend
-systemctl enable rserve
-systemctl enable backend
-systemctl start frontend
-systemctl start rserve
-systemctl start backend
+# cp /usr/lib64/microsoft-deployr/9.0.1/Microsoft.DeployR.Server.WebAPI/autoStartScriptsLinux/*    /etc/systemd/system/.
+# cp /usr/lib64/microsoft-deployr/9.0.1/Microsoft.DeployR.Server.BackEnd/autoStartScriptsLinux/*   /etc/systemd/system/.
+# systemctl enable frontend
+# systemctl enable rserve
+# systemctl enable backend
+# systemctl start frontend
+# systemctl start rserve
+# systemctl start backend
 
 #######################################################################################################################################
 # Copy data and code to VM
