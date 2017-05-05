@@ -99,11 +99,9 @@ Lab Script
 
 4.  Update the experiment and run in Workspace
 
-    1.  Connect Select Columns to Execute R
+    1.  Click Text Analytics in the left menu
 
-    2.  Click Text Analytics in the left menu
-
-    3.  Add Detect Languages
+    2.  Add Detect Languages
 
         1.  Drag “Detect Languages” module to the surface
 
@@ -115,7 +113,7 @@ Lab Script
 
         5.  Type "tweet\_text" and click ok
 
-    4.  Add Extract Key Phrases module
+    3.  Add Extract Key Phrases module
 
         1.  Drag “Extract Key Phrases from Text” module to the surface
 
@@ -127,13 +125,13 @@ Lab Script
 
         5.  Type "tweet\_text" and click ok
 
-    5.  In the left nav menu, select Web Service
+    4.  In the left nav menu, select Web Service
 
         1.  Add Web Service output to each of the two new modules
 
         2.  Attached their output to the modules
 
-    6.  Click Run
+    5.  Click Run
 
 5.  Deploy Web Service
 
@@ -147,7 +145,7 @@ Lab Script
 
     1.  Go through the menu
 
-7.  Test
+7.  Cick Test on the top menu
 
     1.  Click Test on the top menu
 
@@ -155,9 +153,11 @@ Lab Script
 
 8.  Build a client console app
 
-    1.  Copy the sample C\# code
+    1. Click on Consume in the top menu
+    
+    2. Copy the sample C\# code
 
-    2.  Open Visual Studio
+    3.  Open Visual Studio
 
         1.  Click File -&gt; New -&gt; Project-&gt; Under Templates, Visual C\# -&gt; Console App
 
