@@ -72,7 +72,7 @@ wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Ap
 cd /home/remoteuser
 cd Code/ROnAzure
 wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/ROnAzure-doAzureParallel.R
-wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/1-Clean-Join-Subset.r
+wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/1-Clean-Subset.r
 wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/2-Train-Test-Subset.r
 wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/SetComputeContext.r
 
@@ -86,19 +86,13 @@ printf "Downloading data files ... \n"
 ## DOWNLOAD ALL DATA FILES
 cd /home/remoteuser
 cd Data
+# Manhattan data
 wget http://vpgeneralblob.blob.core.windows.net/aitutorial/manhattan_df.rds
-wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/logitModelSubset.RData
-
 # Airline data
-cd /home/remoteuser
-cd Data
-wget https://vpgeneralblob.blob.core.windows.net/aitutorial/AirlineData/WeatherSubsetCsv.tar.gz
 wget https://vpgeneralblob.blob.core.windows.net/aitutorial/AirlineData/AirlineSubsetCsv.tar.gz
-gunzip WeatherSubsetCsv.tar.gz
 gunzip AirlineSubsetCsv.tar.gz
-tar -xvf WeatherSubsetCsv.tar
 tar -xvf AirlineSubsetCsv.tar
-rm WeatherSubsetCsv.tar AirlineSubsetCsv.tar
+rm AirlineSubsetCsv.tar
 
 printf "Copying files to HDFS ... \n"
 ## Copy data to HDFS
