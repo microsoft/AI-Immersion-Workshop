@@ -6,7 +6,7 @@ import time
 
 import cntk as C
 
-# we want auto device selection for multi-GPU training
+# comment out the following line to get auto device selection for multi-GPU training
 C.device.try_set_default_device(C.device.gpu(0))
 
 # Ensure we always get the same amount of randomness
