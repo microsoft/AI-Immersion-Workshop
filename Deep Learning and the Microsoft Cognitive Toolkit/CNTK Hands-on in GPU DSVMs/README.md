@@ -1,8 +1,8 @@
 # CNTK and MNIST on a single GPU
 
-The CNTK_103D_MNIST_ConvolutionalNeuralNetwork notebook is a good example of a convolutional network applied to the MNIST dataset. Here we'll show how it uses the GPU.
+The CNTK_103D_MNIST_ConvolutionalNeuralNetwork notebook, from the Introduction to Deep Learning & CNTK Hands-on folder in this repo (one level above this folder), is a good example of a convolutional network applied to the MNIST dataset. Here we'll show how it uses the GPU.
 
-nvidia-smi is a tool to show the processes running on a GPU, its utilization, and other useful information. It is available at the command line. To get a terminal through JupyterHub, go to the JupyterHub overview page, click New in the top-right corner, and select Terminal. You will get a new window that is running a bash terminal. From here, run nvidia-smi. You can also run nvidia-smi on a loop with the -lms option. Start nvidia-smi in a loop, then run the 103D notebook. Watch how the GPU memory is allocated, then the GPU utilization increases as the notebook begins training.
+nvidia-smi is a tool to show the processes running on a GPU, its utilization, and other useful information. It is available at the command line. To get a terminal through JupyterHub, go to the JupyterHub overview page, click New in the top-right corner, and select Terminal. You will get a new window that is running a bash terminal. From here, run nvidia-smi. You can also run nvidia-smi on a loop with the -lms option. Start nvidia-smi in a loop, then run the 103D notebook. Watch how the GPU memory is allocated, then the GPU utilization increases as the notebook begins training. You can use the outputs from nvidia-smi to tune hyperparameters, like the batch size, for best performance.
 
 ## X2Go
 
@@ -22,7 +22,7 @@ Click OK. Your session will appear as a new session on the right-hand side. Clic
 TensorBoard is a tool from Google to visualize deep neural networks and training progress in your browser. CNTK supports writing output in the TensorBoard format. Create a new TensorBoardProgressWriter and pass it to your learner:
 
         tensorboard_writer = TensorBoardProgressWriter(freq=10, log_dir='log', model=my_model)
-        trainer = cntk.Trainer(--, --, --, tensorboard_writer)
+        trainer = cntk.Trainer(--, --, --, [tensorboard_writer])
 
 and run your CNTK code.
 
