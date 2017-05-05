@@ -4,7 +4,7 @@ source("SetComputeContext.r")
 # For local compute context, skip the following line
 startRxSpark()
 
-finalData <- RxXdfData(file.path(dataDir, "joined5XDFSubset"))
+finalData <- RxXdfData(file.path(dataDir, "airDFXDFSubset"))
 
 ################################################
 # Split out Training and Test Datasets
@@ -25,23 +25,20 @@ rxDataStep( inData = finalData, outFile = testDS,
             rowSelection = ( Year == 2012 ), overwrite = T )
 
 
+# system('hadoop fs -ls /user/RevoShare/remoteuser/Data')
+
 ################################################
 # Train and Test a Logistic Regression model
 ################################################
 
 formula <- as.formula(ArrDel15 ~ Month + DayofMonth + DayOfWeek + Carrier + OriginAirportID + 
-                        DestAirportID + CRSDepTime + CRSArrTime + RelativeHumidityOrigin + 
-                        AltimeterOrigin + DryBulbCelsiusOrigin + WindSpeedOrigin + 
-                        VisibilityOrigin + DewPointCelsiusOrigin + RelativeHumidityDest + 
-                        AltimeterDest + DryBulbCelsiusDest + WindSpeedDest + VisibilityDest + 
-                        DewPointCelsiusDest
-)
+                        DestAirportID + CRSDepTime + CRSArrTime)
 
 # Use the scalable rxLogit() function
 
 logitModel <- rxLogit(formula, data = trainDS)
 
-options(max.print = 10000)
+options(max.print = 100)
 base::summary(logitModel)
 
 # Predict over test data (Logistic Regression).
