@@ -9,12 +9,12 @@ These are assorted Linux toolsets you can install, which among other things, con
 Git for Windows comes with the POSIX infrastructure `git` expects such as `bash`, `perl`, many POSIX tools such as `ssh`, `sed`, `awk`, `tr`, etc. It does not include `python`. A nice feature is the automatic ssh certificate management that avoids password verification for each remote access. 
 
 
-## 2. [PuTTY: latest release (0.69)](http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)  <img src="./images/putty.png" width="80">
+## 2. [PuTTY: latest release (0.69)](http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)  <img src="./images/PuTTY.png" width="80">
 
 `Putty`  is a free and open-source terminal emulator, serial console and network file transfer application for Windows, and allows local, remote, or dynamic port forwarding with `ssh.` It's well known, and has been around for a long time.  `Putty` comes with `plink.exe` a command-line interface to the PuTTY back ends used for non-interactive sessions. As a terminal emulator, it does not include a local Linux shell. 
 
 
-## 3. ["Bash on Ubuntu for Windows"](https://msdn.microsoft.com/en-us/commandline/wsl/about)  <img src="./images/bashForWindows.png" width="80">
+## 3. ["Bash on Ubuntu for Windows"](https://msdn.microsoft.com/en-us/commandline/wsl/about)  <img src="./images/bashForWindows.PNG" width="80">
 
 Microsoft's port of Canonical's Ubuntu minus the GUI, as a _subsystem_ running on the Windows POSIX interface.  Still in beta, but not a VM or just a shell, it can install and run both Windows and Ubuntu binaries. (Really!) Installation takes time, space and involves several steps.
 
