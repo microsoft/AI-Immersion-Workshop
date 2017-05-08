@@ -75,6 +75,7 @@ wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Ap
 wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/1-Clean-Subset.r
 wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/2-Train-Test-Subset.r
 wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/SetComputeContext.r
+wget https://raw.githubusercontent.com/Microsoft/AI-Immersion-Workshop/master/Applied%20Machine%20Learning%20for%20Developers/R%20server%20Tools%20for%20scaling%20R%20using%20Azure/code/ROnAzure/logitModelSubset.RData
 
 cd /home/remoteuser
 cd Code/RDeployment
