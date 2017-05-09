@@ -28,7 +28,7 @@ We will provide Azure Data Science Virtual Machines (running Spark 2.0.2) for at
 
     ![VM SSH](./docs/images/ssh_into_vm.gif)
 
-    For more ways to connect to a Linux machine from Windows, please see [this document](./docs/linux.md).
+DSVM password: cc510bcd49f845e3b46441bc8b6ba981DSVM!
 
 2. Once you are connected, become a root user on the cluster. In the SSH session, use the following command.
 
