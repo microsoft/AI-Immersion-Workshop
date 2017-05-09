@@ -1,4 +1,4 @@
-# Linux on Windows
+1# Linux on Windows
 
 These are assorted Linux toolsets you can install, which among other things, connect remotely to Linux. They are ordered roughly by ease-of-use. 
 
@@ -15,6 +15,7 @@ Git for Windows comes with the POSIX infrastructure `git` expects such as `bash`
 
 
 ## 3. ["Bash on Ubuntu for Windows"](https://msdn.microsoft.com/en-us/commandline/wsl/about)  <img src="./images/bashForWindows.png" width="80">
+
 
 Microsoft's port of Canonical's Ubuntu minus the GUI, as a _subsystem_ running on the Windows POSIX interface.  Still in beta, but not a VM or just a shell, it can install and run both Windows and Ubuntu binaries. (Really!) Installation takes time, space and involves several steps.
 
