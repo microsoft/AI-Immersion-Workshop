@@ -13,7 +13,7 @@ from [http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html](http://ww
 We will provide Azure Data Science Virtual Machines (running Spark 2.0.2) for attendees to use during the tutorial. You will use your laptop to connect to your allocated virtual machine.
 
 1. Connect to your DSVM
-    * __Linux, Mac__: Command line to connect with ssh - replace XXX with the public IP address of your Data Science Virtual Machine [e.g. remoteuser@13.64.107.209]
+    * __Linux, Mac__, or __Windows Linux Shell__: Command line to connect using `ssh`: Replace XXX with the public IP address of your Data Science Virtual Machine [e.g. remoteuser@13.64.107.209]
     ```bash
     ssh -L localhost:8787:localhost:8787 remoteuser@XXX
     ```
@@ -22,7 +22,9 @@ We will provide Azure Data Science Virtual Machines (running Spark 2.0.2) for at
     cd directory-containing-plink.exe
     .\plink.exe -L localhost:8787:localhost:8787 remoteuser@XXX
     ```
-    We are createing an SSH tunnel to the VM by mapping localhost:8787 on the VM to the client machine. This is the port on the VM opened to RStudio Server.
+
+    See [this page](./docs/linux.md) for details on the Windows shell options. 
+    We are creating an SSH tunnel to the VM by mapping localhost:8787 on the VM to the client machine. This is the port on the VM opened to RStudio Server.
 
     ![VM SSH](./docs/images/ssh_into_vm.gif)
 

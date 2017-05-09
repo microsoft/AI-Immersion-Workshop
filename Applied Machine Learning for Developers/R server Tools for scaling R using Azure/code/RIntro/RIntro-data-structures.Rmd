@@ -79,7 +79,10 @@ vector_num_1 <- a:b
 ### Object Representation
 
 + To find the type of an object, use `class` (_higher level representation_)
-+ To find how the object is stored in memory, use `typeof` (_lower level representation_)
++ To find how the object is stored in memory, use `typeof`, or, `mode` (_lower level representation_)
++ To see the raw contents use `str`
++ To see associated fields use `attributes`
+
 
 ## Vectors 
 
