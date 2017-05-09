@@ -23,3 +23,4 @@ Microsoft's port of Canonical's Ubuntu minus the GUI, as a _subsystem_ running o
 
 The long-standing port of GNU tools to Windows, including a terminal emulator and X-Windows server. Includes a complete Linux toolchain for re-compiling linux source on Windows. 
 
+## 5. Or, use `ssh` in the `Git-bash` shell that's available on your Windows DSVM.
