@@ -1,9 +1,12 @@
 # This repository has content for the AI Immersion Workshop tutorial "Tools for scaling R on Azure".
 
-## Tutorial link (AI Immersion Workshop, May 2017)
+### Tutorial link (AI Immersion Workshop, May 2017)
 [https://aiimmersion.eventcore.com/agenda#/192939](https://aiimmersion.eventcore.com/agenda#/192939)
 
-## Tutorial Prerequisites
+## Tutorial slides
+[Tools for Scaling R Using Azure](./docs/ToolsForScalingRUsingAzure.pptx)
+
+## Prerequisites
 * Please bring a wireless enabled laptop.
 * Make sure your machine has an ssh client with port-forwarding capability. On Mac or Linux, simply run the ssh command in a terminal window.
 On Windows, download [plink.exe](https://the.earth.li/~sgtatham/putty/latest/x86/plink.exe)
