@@ -1,3 +1,7 @@
+# Prerequisites
+
+This material requires a [Data Science Virtual Machine for Ubuntu](aka.ms/dsvm/ubuntu) running on an NC series VM. 
+
 # CNTK and MNIST on a single GPU
 
 The CNTK_103D_MNIST_ConvolutionalNeuralNetwork notebook, from the Introduction to Deep Learning & CNTK Hands-on folder in this repo (one level above this folder), is a good example of a convolutional network applied to the MNIST dataset. Here we'll show how it uses the GPU.
