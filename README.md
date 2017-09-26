@@ -1,4 +1,4 @@
-This repository contains source code and other resources for the [AI Immersion workshop](https://blogs.technet.microsoft.com/machinelearning/2017/03/13/microsoft-ai-immersion-workshop-in-seattle-may-9th-2017/). The slides for presentations can be found in [this repo](https://github.com/aiimmersion/aiimmersion-resources).
+This repository contains source code and other resources for the [AI Immersion workshop](https://blogs.technet.microsoft.com/machinelearning/2017/03/13/microsoft-ai-immersion-workshop-in-seattle-may-9th-2017/) held in Seattle on May 9th. The slides for presentations can be found in [this repo](https://github.com/aiimmersion/aiimmersion-resources).
 
 # Contributing
 
