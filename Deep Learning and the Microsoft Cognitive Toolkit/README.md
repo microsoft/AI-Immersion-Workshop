@@ -1,4 +1,4 @@
-This directory contains all the code for the Deep learning track of the AI Immersion workshop. 
+This directory contains all the code for the Deep learning track of the AI Immersion workshop. The slides for presentations can be found in [this repo](https://github.com/aiimmersion/aiimmersion-resources).
 
 Here are steps to setup the code to start running the hands-on. 
 
